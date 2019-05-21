@@ -14,9 +14,12 @@ class TasksController < ApplicationController
   # def create
   # end
   #
-  # def update
-  # end
-  #
+  def update
+    task = Task.find(params[:id])
+    task.update(strong_params)
+    render json: Task.all
+  end
+
   def destroy
     task = Task.find(params[:id])
     task.delete
@@ -26,5 +29,9 @@ class TasksController < ApplicationController
 
   def strong_batch_params
     params.require(:new_tasks)
+  end
+
+  def strong_params
+    params.require(:task).permit(:id, :completed)
   end
 end
