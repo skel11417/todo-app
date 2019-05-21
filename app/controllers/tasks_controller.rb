@@ -3,9 +3,13 @@ class TasksController < ApplicationController
     render json: Task.all
   end
 
-  # def batch_create
-
-# end
+  def batch_create
+    new_tasks = strong_batch_params
+    new_tasks.each do |new_task|
+      Task.create(content: new_task)
+    end
+    render json: Task.all
+  end
 
   # def create
   # end
@@ -13,6 +17,14 @@ class TasksController < ApplicationController
   # def update
   # end
   #
-  # def destroy
-  # end
+  def destroy
+    task = Task.find(params[:id])
+    task.delete
+  end
+
+  private
+
+  def strong_batch_params
+    params.require(:new_tasks)
+  end
 end
