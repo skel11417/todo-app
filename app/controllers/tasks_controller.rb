@@ -5,8 +5,9 @@ class TasksController < ApplicationController
 
   def batch_create
     new_tasks = strong_batch_params
+    most_recent_tasks = []
     new_tasks.each do |new_task|
-      Task.create(content: new_task)
+      t = Task.create(content: new_task)
     end
     render json: Task.all
   end
@@ -32,6 +33,6 @@ class TasksController < ApplicationController
   end
 
   def strong_params
-    params.require(:task).permit(:id, :completed)
+    params.require(:task).permit(:id, :completed, :scheduled_date)
   end
 end
