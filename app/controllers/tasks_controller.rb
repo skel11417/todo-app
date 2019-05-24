@@ -14,6 +14,13 @@ class TasksController < ApplicationController
   # def create
   # end
   #
+
+  def update_cat_indexes
+    Task.update_cat_indexes(params[:category_data])
+    render json: Task.all
+  end
+
+
   def update
     task = Task.find(params[:id])
     task.update(strong_params)
@@ -23,6 +30,7 @@ class TasksController < ApplicationController
   def destroy
     task = Task.find(params[:id])
     task.delete
+    render json: Task.all
   end
 
   private
@@ -32,6 +40,6 @@ class TasksController < ApplicationController
   end
 
   def strong_params
-    params.require(:task).permit(:id, :completed, :date_completed, :scheduled_date, :category)
+    params.require(:task).permit(:id, :completed, :date_completed, :scheduled_date, :category, :category_index)
   end
 end
