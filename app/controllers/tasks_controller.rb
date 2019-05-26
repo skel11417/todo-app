@@ -20,6 +20,10 @@ class TasksController < ApplicationController
     render json: Task.all
   end
 
+  def update_time_indexes
+    Task.update_time_indexes(params[:timeframe_data])
+    render json: Task.all
+  end
 
   def update
     task = Task.find(params[:id])
@@ -34,7 +38,6 @@ class TasksController < ApplicationController
   end
 
   private
-
   def strong_batch_params
     params.require(:new_tasks)
   end
