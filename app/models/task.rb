@@ -34,6 +34,6 @@ class Task < ApplicationRecord
   end
 
   def self.sorted_tasks
-    Task.all.sort_by {|task| task.category_index}
+    Task.order(timeframe_index: :asc, category_index: :asc)
   end
 end
